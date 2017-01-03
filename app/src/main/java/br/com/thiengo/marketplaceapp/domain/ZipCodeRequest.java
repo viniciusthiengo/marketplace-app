@@ -43,13 +43,10 @@ public class ZipCodeRequest extends AsyncTask<Void, Void, Void> {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 activity.get().getAddresses().add( gson.fromJson(jsonObject.toString(), Address.class) );
             }
-
-            return null;
         }
         catch (Exception e){
             e.printStackTrace();
         }
-
         return null;
     }
 
