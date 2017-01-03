@@ -5,6 +5,9 @@ package br.com.thiengo.marketplaceapp.domain;
  */
 
 public class Address {
+    public static final int RESQUEST_ZIP_CODE_CODE = 556;
+    public static final String ZIP_CODE_KEY = "zip_code_key";
+
     private String bairro;
     private String cep;
     private String logradouro;

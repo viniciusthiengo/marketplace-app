@@ -4,13 +4,7 @@ import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import br.com.thiengo.marketplaceapp.SignUpActivity;
 
@@ -36,23 +30,10 @@ public class AddressRequest extends AsyncTask<Void, Void, Address> {
     protected Address doInBackground(Void... voids) {
 
         try{
-            URL url = new URL( "https://viacep.com.br/ws/"+activity.get().getZipCode()+"/json/" );
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-            BufferedReader r = new BufferedReader(new InputStreamReader(in));
-
-            StringBuilder jsonString = new StringBuilder();
-            String line;
-            while ((line = r.readLine()) != null) {
-                jsonString.append(line);
-            }
-
-            urlConnection.disconnect();
-
+            String jsonString = JsonRequest.request( activity.get().getUriRequest() );
             Gson gson = new Gson();
-            Address address = gson.fromJson(jsonString.toString(), Address.class);
 
-            return address;
+            return gson.fromJson(jsonString, Address.class);
         }
         catch (Exception e){
             e.printStackTrace();

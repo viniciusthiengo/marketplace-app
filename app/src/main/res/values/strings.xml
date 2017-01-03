@@ -2,7 +2,7 @@
     <string name="app_name">Marketplace APP</string>
 
     <string-array name="states">
-        <item>"Estado"</item>
+        <item>"*Estado"</item>
         <item>"Acre (AC)"</item>
         <item>"Alagoas (AL)"</item>
         <item>"Amapá (AP)"</item>
