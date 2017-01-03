@@ -26,7 +26,10 @@ public class SignUpActivity extends AppCompatActivity {
         etZipCode.addTextChangedListener( new ZipCodeListener(this) );
 
         Spinner spStates = (Spinner) findViewById(R.id.sp_state);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.states, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter
+                .createFromResource(this,
+                        R.array.states,
+                        android.R.layout.simple_spinner_item);
         spStates.setAdapter(adapter);
 
         util = new Util(this,

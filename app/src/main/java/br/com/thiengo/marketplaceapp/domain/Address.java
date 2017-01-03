@@ -14,8 +14,6 @@ public class Address {
     private String localidade;
     private String uf;
     private String complemento;
-    private String ibge;
-    private String gia;
 
     public String getBairro() {
         return bairro;
@@ -63,21 +61,5 @@ public class Address {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-
-    public String getIbge() {
-        return ibge;
-    }
-
-    public void setIbge(String ibge) {
-        this.ibge = ibge;
-    }
-
-    public String getGia() {
-        return gia;
-    }
-
-    public void setGia(String gia) {
-        this.gia = gia;
     }
 }

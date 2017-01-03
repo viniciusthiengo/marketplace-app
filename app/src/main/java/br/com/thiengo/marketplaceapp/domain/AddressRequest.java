@@ -1,6 +1,7 @@
 package br.com.thiengo.marketplaceapp.domain;
 
 import android.os.AsyncTask;
+import android.os.SystemClock;
 
 import com.google.gson.Gson;
 
@@ -32,7 +33,6 @@ public class AddressRequest extends AsyncTask<Void, Void, Address> {
         try{
             String jsonString = JsonRequest.request( activity.get().getUriRequest() );
             Gson gson = new Gson();
-
             return gson.fromJson(jsonString, Address.class);
         }
         catch (Exception e){
