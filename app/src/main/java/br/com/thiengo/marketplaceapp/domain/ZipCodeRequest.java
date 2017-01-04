@@ -9,50 +9,53 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 
+import br.com.thiengo.marketplaceapp.SignUpActivity;
 import br.com.thiengo.marketplaceapp.ZipCodeSearchActivity;
 
 /**
- * Created by viniciusthiengo on 02/01/17.
+ * Created by viniciusthiengo on 03/01/17.
  */
 
 public class ZipCodeRequest extends AsyncTask<Void, Void, Void> {
     private WeakReference<ZipCodeSearchActivity> activity;
 
-    public ZipCodeRequest( ZipCodeSearchActivity activity ){
+    public ZipCodeRequest(ZipCodeSearchActivity activity ){
         this.activity = new WeakReference<>( activity );
     }
-
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        activity.get().lockFields( true );
+        if( activity.get() != null ){
+            activity.get().lockFields( true );
+        }
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
+        try {
+            String jsonString = JsonRequest.request( activity.get().getUriZipCode() );
 
-        try{
-            String jsonString = JsonRequest.request( activity.get().getUriRequest() );
-
-            JSONArray jsonArray = new JSONArray(jsonString);
             Gson gson = new Gson();
-            activity.get().getAddresses().clear(); /* PARA REAPROVEITAR O OBJETO DE LISTA */
+            JSONArray jsonArray = new JSONArray(jsonString);
+            activity.get().getAddresses().clear();
 
             for( int i = 0; i < jsonArray.length(); i++ ){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                activity.get().getAddresses().add( gson.fromJson(jsonObject.toString(), Address.class) );
+                Address a = gson.fromJson( jsonObject.toString(), Address.class );
+                activity.get().getAddresses().add( a );
             }
-        }
-        catch (Exception e){
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
     @Override
-    protected void onPostExecute(Void data) {
-        super.onPostExecute(data);
+    protected void onPostExecute(Void svoid) {
+        super.onPostExecute(svoid);
 
         if( activity.get() != null ){
             activity.get().lockFields( false );

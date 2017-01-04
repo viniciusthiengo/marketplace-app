@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".ZipCodeSearchActivity"></activity>
+        <activity android:name=".ZipCodeSearchActivity"/>
     </application>
 
 </manifest>

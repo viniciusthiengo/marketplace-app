@@ -12,12 +12,12 @@ import java.util.List;
 import br.com.thiengo.marketplaceapp.R;
 
 /**
- * Created by viniciusthiengo on 02/01/17.
+ * Created by viniciusthiengo on 04/01/17.
  */
 
 public class AddressAdapter extends BaseAdapter {
-    private List<Address> addresses;
     private LayoutInflater inflater;
+    private List<Address> addresses;
 
     public AddressAdapter(Context context, List<Address> addresses){
         inflater = LayoutInflater.from(context);
@@ -31,7 +31,7 @@ public class AddressAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return addresses.get( i );
+        return addresses.get(i);
     }
 
     @Override
@@ -52,27 +52,29 @@ public class AddressAdapter extends BaseAdapter {
         else{
             holder = (ViewHolder) view.getTag();
         }
-        holder.setData( addresses.get( i ) );
+
+        holder.setData( addresses.get(i) );
 
         return view;
     }
+
 
     private static class ViewHolder{
         TextView tvZipCode;
         TextView tvStreet;
         TextView tvNeighbor;
 
-        void setViews( View view ){
+        private void setViews( View view ){
             tvZipCode = (TextView) view.findViewById(R.id.tv_zip_code);
             tvStreet = (TextView) view.findViewById(R.id.tv_street);
             tvNeighbor = (TextView) view.findViewById(R.id.tv_neighbor);
         }
 
-        void setData( Address address ){
+        private void setData( Address address ){
             tvZipCode.setText( "CEP: "+address.getCep() );
-            tvZipCode.setTag( address.getCep() );
             tvStreet.setText( "Rua: "+address.getLogradouro() );
             tvNeighbor.setText( "Bairro: "+address.getBairro() );
         }
     }
+
 }

@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +32,9 @@ public class ZipCodeSearchActivity extends AppCompatActivity implements AdapterV
 
         addresses = new ArrayList<>();
         lvAddress = (ListView) findViewById(R.id.lv_address);
-        AddressAdapter adapter = new AddressAdapter( this, addresses );
+        AddressAdapter adapter = new AddressAdapter(this, addresses);
         lvAddress.setAdapter( adapter );
-        lvAddress.setOnItemClickListener(this);
+        lvAddress.setOnItemClickListener( this );
 
         spStates = (Spinner) findViewById(R.id.sp_state);
         spStates.setAdapter( ArrayAdapter.createFromResource(this, R.array.states, android.R.layout.simple_spinner_item) );
@@ -46,13 +45,18 @@ public class ZipCodeSearchActivity extends AppCompatActivity implements AdapterV
                 R.id.sp_state);
     }
 
-    private String getState(){
-        String state = (String) spStates.getSelectedItem();
-        String[] parts = state.split("\\(");
-        parts = parts[ parts.length - 1 ].split("\\)");
-        state = parts[0];
+    public void lockFields( boolean isToLock ){
+        util.lockFields( isToLock );
+    }
 
-        return state;
+    private String getState(){
+        String[] stateArray = ((String) spStates.getSelectedItem()).split("\\(");
+
+        if( stateArray.length == 2 ){
+            stateArray = stateArray[1].split("\\)");
+            return stateArray[0];
+        }
+        return "";
     }
 
     private String getCity(){
@@ -63,40 +67,34 @@ public class ZipCodeSearchActivity extends AppCompatActivity implements AdapterV
         return ((EditText) findViewById(R.id.et_street)).getText().toString();
     }
 
-    public String getUriRequest(){
-        String uri = getState()+"/";
+    public String getUriZipCode(){
+        String uri = "https://viacep.com.br/ws/";
+        uri += getState()+"/";
         uri += getCity()+"/";
-        uri += getStreet()+"/";
-        uri += "json/";
-
-        return "https://viacep.com.br/ws/"+uri;
-    }
-
-    public void searchAddress( View view ){
-        new ZipCodeRequest( this ).execute();
-    }
-
-    public void updateListView(){
-        ((AddressAdapter) lvAddress.getAdapter()).notifyDataSetChanged();
+        uri += getStreet()+"/json/";
+        return uri;
     }
 
     public List<Address> getAddresses(){
         return addresses;
     }
 
-    public void lockFields( boolean isToLock ){
-        util.lockFields( isToLock );
+    public void updateListView(){
+        ((AddressAdapter) lvAddress.getAdapter()).notifyDataSetChanged();
+    }
+
+    public void searchAddress( View view ){
+        new ZipCodeRequest( this ).execute();
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        TextView tvZipCode = (TextView) view.findViewById(R.id.tv_zip_code);
-        String[] zipCodeArray = ((String) tvZipCode.getTag()).split("-");
-        String zipCode = zipCodeArray[0] + zipCodeArray[1];
+        String[] zipCodeArray = addresses.get( i ).getCep().split("-");
+        String zipCode = zipCodeArray[0]+zipCodeArray[1];
 
         Intent intent = new Intent();
         intent.putExtra( Address.ZIP_CODE_KEY, zipCode );
-        setResult(RESULT_OK, intent);
+        setResult( RESULT_OK, intent );
         finish();
     }
 }
