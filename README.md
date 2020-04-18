@@ -1,8 +1,8 @@
 # MarketplaceAPP (Java Android)
 
-Projeto Java Android do artigo [API de Endereços Para Pré-Cadastro em APPs Android - Parte 1](https://www.thiengo.com.br/api-de-enderecos-para-pre-cadastro-em-apps-android-parte-1#title-3) do Blog [Thiengo.com.br](https://www.thiengo.com.br).
+Projeto Java Android do artigo [API de Endereços Para Pré-Cadastro em APPs Android](https://www.thiengo.com.br/api-de-enderecos-para-pre-cadastro-em-apps-android-parte-1#title-3) do Blog [Thiengo.com.br](https://www.thiengo.com.br).
 
-Artigo que discute em detalhes a ViaCEP API. API utilizada para consulta gratuita de CEP válido.
+Artigo que discute em detalhes a ViaCEP API. API utilizada para consulta gratuita de CEP.
 
 <img src="https://www.thiengo.com.br/img/post/normal/f9h2qalso58claa5j2tip2ugl00894e5512e948b16ddc23e69f47bbcb0.jpg" width="500" alt="API de Endereços Para Pré-Cadastro em APPs Android">
 
